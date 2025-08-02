@@ -1,54 +1,51 @@
 services:
-  - name: rasa-core
-    type: docker
+  rasa-core:
     image: rasa/rasa:3.6.18-full
     ports:
-      - internal: 5005
-        public: true
+      - "5005:5005"
     volumes:
-      - name: rasa-projects
-        mount: /app/projects
-      - name: rasa-models
-        mount: /app/models
-    env:
-      - key: RASA_MODEL
-        value: ./models
+      - rasa-projects:/app/projects
+      - rasa-models:/app/models
+    environment:
+      - RASA_MODEL=./models
+    networks:
+      - coolify
 
-  - name: action-server
-    type: docker_build
-    dockerfile_path: ./actions/Dockerfile
-    source: local
+  action-server:
+    build:
+      context: .
+      dockerfile: ./actions/Dockerfile
     ports:
-      - internal: 5055
-        public: true
+      - "5055:5055"
     volumes:
-      - name: action-data
-        mount: /app/actions
-    env:
-      - key: OPENAI_API_KEY
-        value: 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
-      - key: DB_URL
-        value: postgresql://conflictuser:strongpassword@postgres-db:5432/conflictdb
+      - action-data:/app/actions
+    environment:
+      - OPENAI_API_KEY=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
+      - DB_URL=postgresql://conflictuser:strongpassword@postgres-db:5432/conflictdb
+    depends_on:
+      - postgres-db
+    networks:
+      - coolify
 
-  - name: postgres-db
-    type: docker
+  postgres-db:
     image: postgres:15
     ports:
-      - internal: 5432
-        public: false
+      - "5432:5432"
     volumes:
-      - name: postgres-data
-        mount: /var/lib/postgresql/data
-    env:
-      - key: POSTGRES_USER
-        value: conflictuser
-      - key: POSTGRES_PASSWORD
-        value: strongpassword
-      - key: POSTGRES_DB
-        value: conflictdb
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=conflictuser
+      - POSTGRES_PASSWORD=strongpassword
+      - POSTGRES_DB=conflictdb
+    networks:
+      - coolify
 
 volumes:
-  - name: rasa-projects
-  - name: rasa-models
-  - name: action-data
-  - name: postgres-data
+  rasa-projects:
+  rasa-models:
+  action-data:
+  postgres-data:
+
+networks:
+  coolify:
+    external: true
