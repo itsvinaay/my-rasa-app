@@ -1,10 +1,8 @@
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
+FROM rasa/rasa-sdk:3.6.2
 
-class ActionHelloWorld(Action):
-    def name(self):
-        return "action_hello_world"
+COPY . /app/actions
+WORKDIR /app/actions
 
-    def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text="Hello from the action server!")
-        return []
+RUN pip install --no-cache-dir -r requirements.txt
+
+USER 1001
