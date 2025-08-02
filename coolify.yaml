@@ -26,7 +26,7 @@ services:
         mount: /app/actions
     env:
       - key: OPENAI_API_KEY
-        value: sk-xxx-your-key-here
+        value: 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
       - key: DB_URL
         value: postgresql://conflictuser:strongpassword@postgres-db:5432/conflictdb
 
