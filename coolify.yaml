@@ -1,0 +1,54 @@
+services:
+  - name: rasa-core
+    type: docker
+    image: rasa/rasa:3.6.18-full
+    ports:
+      - internal: 5005
+        public: true
+    volumes:
+      - name: rasa-projects
+        mount: /app/projects
+      - name: rasa-models
+        mount: /app/models
+    env:
+      - key: RASA_MODEL
+        value: ./models
+
+  - name: action-server
+    type: docker_build
+    dockerfile_path: ./actions/Dockerfile
+    source: local
+    ports:
+      - internal: 5055
+        public: true
+    volumes:
+      - name: action-data
+        mount: /app/actions
+    env:
+      - key: OPENAI_API_KEY
+        value: sk-xxx-your-key-here
+      - key: DB_URL
+        value: postgresql://conflictuser:strongpassword@postgres-db:5432/conflictdb
+
+  - name: postgres-db
+    type: docker
+    image: postgres:15
+    ports:
+      - internal: 5432
+        public: false
+    volumes:
+      - name: postgres-data
+        mount: /var/lib/postgresql/data
+    env:
+      - key: POSTGRES_USER
+        value: conflictuser
+      - key: POSTGRES_PASSWORD
+        value: strongpassword
+      - key: POSTGRES_DB
+        value: conflictdb
+
+volumes:
+  - name: rasa-projects
+  - name: rasa-models
+  - name: action-data
+  - name: postgres-data

@@ -1,0 +1,4 @@
+rasa-sdk==3.6.2
+openai
+langchain
+transformers
