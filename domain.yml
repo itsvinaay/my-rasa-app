@@ -1,0 +1,106 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - ask_weather
+  - ask_time
+  - ask_name
+  - book_appointment
+  - cancel_appointment
+  - check_balance
+  - transfer_money
+  - get_help
+
+entities:
+  - name
+  - amount
+  - account_type
+  - date
+  - time
+
+slots:
+  user_name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: name
+  
+  appointment_date:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: date
+  
+  appointment_time:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: time
+  
+  transfer_amount:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: amount
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+  - text: "Hello! How can I help you today?"
+  - text: "Hi there! What can I do for you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+  - text: "Goodbye! Have a great day!"
+  - text: "See you later!"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_weather:
+  - text: "I'm sorry, I don't have access to current weather data. You can check a weather app or website for accurate information."
+
+  utter_time:
+  - text: "I don't have access to real-time data, but you can check the time on your device."
+
+  utter_name:
+  - text: "I'm your friendly Rasa assistant! You can call me RasaBot."
+
+  utter_help:
+  - text: "I can help you with various tasks like booking appointments, checking information, or just having a conversation. What would you like to do?"
+
+  utter_default:
+  - text: "I'm sorry, I didn't understand that. Could you please rephrase?"
+  - text: "I'm not sure what you mean. Can you try asking in a different way?"
+
+actions:
+  - action_book_appointment
+  - action_cancel_appointment
+  - action_check_balance
+  - action_transfer_money
+  - action_get_weather
+  - action_get_time
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

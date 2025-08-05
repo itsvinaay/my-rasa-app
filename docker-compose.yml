@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  rasa-core:
+    build: .
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    environment:
+      - RASA_MODEL=./models
+    depends_on:
+      - postgres-db
+      - action-server
+    networks:
+      - rasa-network
+
+  action-server:
+    build:
+      context: ./actions
+      dockerfile: Dockerfile
+    ports:
+      - "5055:5055"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DB_URL=postgresql://conflictuser:strongpassword@postgres-db:5432/conflictdb
+    depends_on:
+      - postgres-db
+    networks:
+      - rasa-network
+
+  postgres-db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=conflictuser
+      - POSTGRES_PASSWORD=strongpassword
+      - POSTGRES_DB=conflictdb
+    networks:
+      - rasa-network
+
+volumes:
+  postgres_data:
+
+networks:
+  rasa-network:
+    driver: bridge

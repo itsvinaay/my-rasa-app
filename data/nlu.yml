@@ -1,0 +1,182 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - catch you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - yes please
+    - absolutely
+    - sure
+    - right
+    - exactly
+    - yep
+    - yeah
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nope
+    - nah
+    - not interested
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - what are you?
+    - who are you?
+    - are you real?
+
+- intent: ask_weather
+  examples: |
+    - what's the weather like?
+    - how's the weather?
+    - is it raining?
+    - weather forecast
+    - tell me about the weather
+    - what's the temperature?
+    - is it sunny?
+    - weather today
+
+- intent: ask_time
+  examples: |
+    - what time is it?
+    - current time
+    - tell me the time
+    - what's the time?
+    - time please
+    - clock
+
+- intent: ask_name
+  examples: |
+    - what's your name?
+    - who are you?
+    - what should I call you?
+    - your name please
+    - introduce yourself
+    - tell me your name
+
+- intent: book_appointment
+  examples: |
+    - I want to book an appointment
+    - schedule a meeting
+    - book a slot
+    - I need an appointment
+    - can I schedule something?
+    - book appointment for [tomorrow](date)
+    - schedule meeting at [3pm](time)
+    - appointment with [Dr. Smith](name)
+
+- intent: cancel_appointment
+  examples: |
+    - cancel my appointment
+    - I want to cancel
+    - remove my booking
+    - cancel the meeting
+    - delete appointment
+    - cancel appointment for [tomorrow](date)
+
+- intent: check_balance
+  examples: |
+    - what's my balance?
+    - check balance
+    - account balance
+    - how much money do I have?
+    - balance inquiry
+    - show my balance
+
+- intent: transfer_money
+  examples: |
+    - transfer money
+    - send money
+    - I want to transfer [100](amount) dollars
+    - send [50](amount) to my friend
+    - transfer [200](amount)
+    - money transfer
+
+- intent: get_help
+  examples: |
+    - help
+    - I need help
+    - can you help me?
+    - what can you do?
+    - help me
+    - assistance
+    - support
