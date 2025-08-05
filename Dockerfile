@@ -11,7 +11,7 @@ COPY . /app
 WORKDIR /app
 
 # Install any additional dependencies if needed
-# RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the start script and make it executable
 COPY start.sh /app/start.sh
