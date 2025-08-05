@@ -1,3 +1,4 @@
+```dockerfile
 FROM rasa/rasa:3.6.18-full
 
 # Switch to root user to install dependencies
@@ -12,14 +13,13 @@ WORKDIR /app
 # Install any additional dependencies if needed
 # RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the start script and make it executable
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
 # Switch back to the rasa user
 USER 1001
 
-# Train the model
-RUN rasa train
-
-# Expose the port
-EXPOSE 5005
-
-# Run Rasa server
-CMD ["run", "--enable-api", "--cors", "*", "--debug"]
+# Run the start script
+CMD ["/app/start.sh"]
+```
